@@ -12,6 +12,9 @@ client = gspread.authorize(creds)
 # Make sure you use the right name here.
 sheet = client.open("copy_busse_annulus_runs").sheet1
 lastIndex = len(sheet.get_all_values())
+print(lastIndex)
 # Extract and print all of the values
-row = ["I'm","inserting","a","row","into","a,","Spreadsheet","with","Python","this","is","a","test"]
-sheet.insert_row(row, lastIndex+1)
+values_list = worksheet.row_values(lastIndex)
+print(values_list)
+# row = ["I'm","inserting","a","row","into","a,","Spreadsheet","with","Python","this","is","a","test"]
+# sheet.insert_row(row, lastIndex+1)
