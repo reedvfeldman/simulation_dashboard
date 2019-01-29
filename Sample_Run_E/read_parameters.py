@@ -12,6 +12,7 @@ from oauth2client.service_account import ServiceAccountCredentials
 # row = ["E","CE2/run_E","36000","0","2.8e3","32","32","0","0","CE2","Leavitt","works!"]
 # sheet.insert_row(row, lastIndex+1)
 
+
 class Parameters():
     def __init__(self):
         self.status = 'incomplete'
@@ -43,14 +44,9 @@ class Parameters():
 
 #create key value pairs for parameters
 # parameters = sheet.row_values(1)
-
 #params_dict = dict(zip(parameters, values_list))
 #print(params_dict)
 
-# output_file = open('slurm-1922.out', 'r').readlines()
-# last = len(output_file)
-# output = (output_file[last-5:last-1])
-# print(output)
 if __name__ == "__main__":
     spreadsheetParameters = Parameters()
     spreadsheetParameters.setParameters()
