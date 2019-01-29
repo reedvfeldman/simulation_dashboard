@@ -3,16 +3,6 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
-# use creds to create a client to interact with the Google Drive API
-
-# Find a workbook by name and open the first sheet
-# Make sure you use the right name here.
-
-# Extract and print all of the values
-# row = ["E","CE2/run_E","36000","0","2.8e3","32","32","0","0","CE2","Leavitt","works!"]
-# sheet.insert_row(row, lastIndex+1)
-
-
 class Parameters():
     def __init__(self):
         self.status = 'incomplete'
@@ -43,8 +33,10 @@ class Parameters():
         #run sim and update self.status to be in progress --> read parameter status
 
 #create key value pairs for parameters
-# parameters = sheet.row_values(1)
+#parameters = sheet.row_values(1)
 #params_dict = dict(zip(parameters, values_list))
+# lastIndex = len(self.sheet.get_all_values())
+# values_list = self.sheet.row_values(lastIndex)
 #print(params_dict)
 
 if __name__ == "__main__":
