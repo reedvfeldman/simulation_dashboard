@@ -4,21 +4,28 @@ import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 
 class Parameters():
+    idCounter = 0
+    stop = False
     def __init__(self):
+        Parameters.idCounter += 1
+        self.name = 'Parameters_{0}'.format(Parameters.idCounter)
         self.status = 'incomplete'
-        self.makeConnection()
+        self.sheet = self.makeConnection()
+        self.lastIndex = self.getLastIndex()
+        self.setParameters()
 
     def makeConnection(self):
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
         client = gspread.authorize(creds)
-        self.sheet = client.open("copy_busse_annulus_runs").sheet1
-        return self.sheet
+        return client.open("copy_busse_annulus_runs").sheet1
+
+    def getLastIndex(self):
+        return len(self.makeConnection().get_all_values())
 
     def setParameters(self):
-        lastIndex = len(self.sheet.get_all_values())
-        values_list = self.sheet.row_values(lastIndex)
+        values_list = self.sheet.row_values(self.lastIndex)
         self.identifier = values_list[0]
         self.configDirectory = values_list[1]
         self.rA = values_list[2]
@@ -38,8 +45,3 @@ class Parameters():
 # lastIndex = len(self.sheet.get_all_values())
 # values_list = self.sheet.row_values(lastIndex)
 #print(params_dict)
-
-if __name__ == "__main__":
-    spreadsheetParameters = Parameters()
-    spreadsheetParameters.setParameters()
-    print(spreadsheetParameters.__dict__)
