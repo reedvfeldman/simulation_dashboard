@@ -2,6 +2,9 @@
 # reads parameters into key value pairs
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
+import configparser
+import os
+
 
 class Parameters():
     idCounter = 0
@@ -13,8 +16,10 @@ class Parameters():
         self.sheet = self.makeConnection()
         self.lastIndex = self.getLastIndex()
         self.setParameters()
+        self.createConfig()
 
     def makeConnection(self):
+        print('making connection')
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
         creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
@@ -38,6 +43,17 @@ class Parameters():
         self.type = values_list[9]
         self.machine = values_list[10]
         #run sim and update self.status to be in progress --> read parameter status
+
+    def createConfig(self):
+        config = configparser.ConfigParser()
+        config['DEFAULT'] = {'ID': self.name,
+                             'Identifier': self.identifier,
+                             'Machine': self.machine
+                             }
+        #place location corresponding to Levitt folder structure
+        config['Location'] = {'path':os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}
+        with open('example.ini', 'w') as configfile:
+            config.write(configfile)
 
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
