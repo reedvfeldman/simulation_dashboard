@@ -14,7 +14,7 @@ class Parameters():
         self.name = 'Parameters_{0}'.format(Parameters.idCounter)
         self.status = 'incomplete'
         self.sheet = self.makeConnection()
-        self.lastIndex = self.getLastIndex()
+        self.lastIndex = len(self.sheet.get_all_values())
         self.setParameters()
         self.createConfig()
 
@@ -29,6 +29,7 @@ class Parameters():
     def getLastIndex(self):
         return len(self.makeConnection().get_all_values())
 
+    #write functionality that doesn't break if someone doesn't have enough params
     def setParameters(self):
         values_list = self.sheet.row_values(self.lastIndex)
         self.identifier = values_list[0]
