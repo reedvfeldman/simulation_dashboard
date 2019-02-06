@@ -7,7 +7,7 @@ def readDataFeed():
     last = len(runs)-1
     spreadsheetParameters = Parameters()
     runs.append(spreadsheetParameters)
-    print('while loop')
+    print('entering while loop')
     while not spreadsheetParameters.stop:
         print('last run in list:')
         print(runs[last].__dict__)
