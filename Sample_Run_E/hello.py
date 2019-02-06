@@ -12,8 +12,6 @@ def readDataFeed():
         print('last run in list:')
         print(runs[last].__dict__)
         time.sleep(30)
-        print(spreadsheetParameters.lastIndex)
-        print(spreadsheetParameters.getLastIndex())
         if spreadsheetParameters.lastIndex < spreadsheetParameters.getLastIndex():
             print('new row added')
             spreadsheetParameters = Parameters()
