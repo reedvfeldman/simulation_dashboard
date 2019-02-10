@@ -7,17 +7,6 @@ def readDataFeed():
     last = len(runs)-1
     spreadsheetParameters = Parameters()
     runs.append(spreadsheetParameters)
-    print('entering while loop')
-    while not spreadsheetParameters.stop:
-        print('last run in list:')
-        print(runs[last].__dict__)
-        time.sleep(30)
-        if spreadsheetParameters.lastIndex < spreadsheetParameters.getLastIndex():
-            print('new row added')
-            spreadsheetParameters = Parameters()
-            runs.append(spreadsheetParameters)
-        else:
-            print('nothing has changed')
-            continue
-
+    print(runs[last].__dict__)
+    #make folders and param files
 readDataFeed()
