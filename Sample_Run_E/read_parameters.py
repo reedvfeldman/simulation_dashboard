@@ -60,16 +60,15 @@ class Parameters():
     #this function should be called by createDirectory()
     def createConfig(self):
         print('creatingLocal conig')
-        config = configparser.ConfigParser()
-        config['DEFAULT'] = {'ID': self.name,
+        self.config = configparser.ConfigParser()
+        self.config['DEFAULT'] = {'ID': self.name,
                              'Identifier': self.identifier,
                              'Machine': self.machine
                              }
         #place location corresponding to Levitt folder structure
-        config['Location'] = {'Directory': self.buildLocation,
+        self.config['Location'] = {'Directory': self.buildLocation,
                               'ConfigFile': self.buildLocation + '/' + str(self.identifier + '.cfg')}
-        with open('new.cfg', 'w') as configfile:
-            config.write(configfile)
+        return self.config
 
     #use pathlib to create directory
     #take example config as input
@@ -80,7 +79,7 @@ class Parameters():
         run_dir.mkdir(exist_ok=True, parents=True)
         myfname = run_dir.joinpath('run_' + str(self.identifier) + '.cfg')
         with myfname.open('w') as wf:
-            wf.write("Hello world")
+            self.config.write(wf)
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
 #params_dict = dict(zip(parameters, values_list))
