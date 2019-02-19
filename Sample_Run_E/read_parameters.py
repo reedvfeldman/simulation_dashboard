@@ -3,7 +3,7 @@
 import gspread
 from oauth2client.service_account import ServiceAccountCredentials
 import configparser
-import os
+from pathlib import Path
 
 
 class Parameters():
@@ -16,7 +16,9 @@ class Parameters():
         self.sheet = self.makeConnection()
         self.lastIndex = len(self.sheet.get_all_values())
         self.setParameters()
+        self.readConfig()
         self.createConfig()
+        self.createDirectory()
 
     def makeConnection(self):
         print('making connection')
@@ -45,16 +47,36 @@ class Parameters():
         self.machine = values_list[10]
         #run sim and update self.status to be in progress --> read parameter status
 
+    #readConfig takes the global .cfg file as input
+    def readConfig(self):
+        print('readingConfig')
+        config = configparser.ConfigParser()
+        config.read('example.cfg')
+        self.buildLocation = config['Paths']['base_dir'] + str(self.identifier)
+        print(self.buildLocation)
+
+    #createConfig will create the local config file inside the project directory
+    #Must read global config first so that you know where to put local one
+    #this function should be called by createDirectory()
     def createConfig(self):
+        print('creatingLocal conig')
         config = configparser.ConfigParser()
         config['DEFAULT'] = {'ID': self.name,
                              'Identifier': self.identifier,
                              'Machine': self.machine
                              }
         #place location corresponding to Levitt folder structure
-        config['Location'] = {'path':os.path.dirname(os.path.dirname(os.path.abspath(__file__)))}
-        with open('example.ini', 'w') as configfile:
+        config['Location'] = {'Directory': self.buildLocation,
+                              'ConfigFile': self.buildLocation + '/' + str(self.identifier + '.cfg')}
+        with open('new.cfg', 'w') as configfile:
             config.write(configfile)
+
+    #use pathlib to create directory
+    #take example config as input
+    def createDirectory(self):
+        print('creatingDirectory')
+        run_dir = Path(self.buildLocation)
+        run_dir.mkdir(exist_ok=True, parents=True)
 
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
