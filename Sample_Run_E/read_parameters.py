@@ -24,7 +24,7 @@ class Parameters():
         print('making connection')
         scope = ['https://spreadsheets.google.com/feeds',
                  'https://www.googleapis.com/auth/drive']
-        creds = ServiceAccountCredentials.from_json_keyfile_name('client_secret.json', scope)
+        creds = ServiceAccountCredentials.from_json_keyfile_name('/home/rfeldman/simulation_dashboard/Sample_Run_E/client_secret.json', scope)
         client = gspread.authorize(creds)
         return client.open("copy_busse_annulus_runs").sheet1
 
