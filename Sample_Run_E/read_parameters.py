@@ -75,9 +75,12 @@ class Parameters():
     #take example config as input
     def createDirectory(self):
         print('creatingDirectory')
-        run_dir = Path(self.buildLocation)
+        run_dir = Path.home().joinpath(self.buildLocation)
+        print(Path.home() / (self.buildLocation))
         run_dir.mkdir(exist_ok=True, parents=True)
-
+        myfname = run_dir.joinpath('run_' + str(self.identifier) + '.cfg')
+        with myfname.open('w') as wf:
+            wf.write("Hello world")
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
 #params_dict = dict(zip(parameters, values_list))
