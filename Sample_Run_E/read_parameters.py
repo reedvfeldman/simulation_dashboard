@@ -77,9 +77,12 @@ class Parameters():
         run_dir = Path.home().joinpath(self.buildLocation)
         print(Path.home() / (self.buildLocation))
         run_dir.mkdir(exist_ok=True, parents=True)
-        myfname = run_dir.joinpath('run_' + str(self.identifier) + '.cfg')
-        with myfname.open('w') as wf:
+        configFile = run_dir.joinpath('run_' + str(self.identifier) + '.cfg')
+        runFile = run_dir.joinpath('run_' + str(self.identifier) + '_kturb.sh') 
+        with configFile.open('w') as wf:
             self.config.write(wf)
+        with runFile.open('w') as rf:
+            rf.write('Hello World!')    
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
 #params_dict = dict(zip(parameters, values_list))
