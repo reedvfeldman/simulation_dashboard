@@ -78,9 +78,15 @@ class Parameters():
         print(Path.home() / (self.buildLocation))
         run_dir.mkdir(exist_ok=True, parents=True)
         configFile = run_dir.joinpath('run_' + str(self.identifier) + '.cfg')
-        runFile = run_dir.joinpath('run_' + str(self.identifier) + '_kturb.sh') 
         with configFile.open('w') as wf:
             self.config.write(wf)
+        runFile = run_dir.joinpath('run_' + str(self.identifier) + '_kturb.sh')
+        simFile = run_dir.joinpath('kturb.py')
+        #maybe have fileList read from global config??
+        fileList = [runFile, simFile]
+        for item in fileList:
+            with item.open("w") as f:
+                f.write('Your Code Goes Here')
         with runFile.open('w') as rf:
             rf.write('Hello World!')    
 #create key value pairs for parameters
