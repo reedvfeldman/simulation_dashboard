@@ -86,9 +86,7 @@ class Parameters():
         fileList = [runFile, simFile]
         for item in fileList:
             with item.open("w") as f:
-                f.write('Your Code Goes Here')
-        with runFile.open('w') as rf:
-            rf.write('Hello World!')    
+                f.write('Your Code Goes Here')   
 #create key value pairs for parameters
 #parameters = sheet.row_values(1)
 #params_dict = dict(zip(parameters, values_list))
