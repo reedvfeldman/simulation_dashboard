@@ -52,7 +52,7 @@ class Parameters():
         print('readingConfig')
         config = configparser.ConfigParser()
         config.read('example.cfg')
-        self.buildLocation = config['Paths']['base_dir'] + str(self.identifier)
+        self.buildLocation = config['Paths']['base_dir'] + '/' + str(self.identifier)
         print(self.buildLocation)
 
     #createConfig will create the local config file inside the project directory
